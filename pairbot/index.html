@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TandemPair - Change Money, Not Trust</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-blue: #1A73E8;
+            --accent-coral: #FF6B6B;
+            --success-mint: #51CF66;
+            --deep-navy: #0A2540;
+            --sky-blue: #E3F2FD;
+            --warm-sand: #FAF9F6;
+            --gray-900: #212121;
+            --gray-700: #616161;
+            --gray-400: #BDBDBD;
+            --gray-200: #EEEEEE;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--gray-900);
+            line-height: 1.6;
+            background: white;
+        }
+        
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 16px 0;
+            border-bottom: 1px solid var(--gray-200);
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--deep-navy);
+            text-decoration: none;
+        }
+        
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: var(--gray-700);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            transition: color 0.2s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-blue);
+        }
+        
+        .btn-primary {
+            background: var(--primary-blue);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s;
+            box-shadow: 0 2px 4px rgba(26, 115, 232, 0.2);
+        }
+        
+        .btn-primary:hover {
+            background: #1557b0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(26, 115, 232, 0.3);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-blue);
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 16px;
+            border: 2px solid var(--primary-blue);
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s;
+        }
+        
+        .btn-secondary:hover {
+            background: var(--sky-blue);
+        }
+        
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            background: linear-gradient(135deg, var(--sky-blue) 0%, var(--warm-sand) 100%);
+            padding: 80px 24px;
+            text-align: center;
+        }
+        
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+        }
+        
+        .hero-content {
+            text-align: left;
+        }
+        
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 700;
+            color: var(--deep-navy);
+            line-height: 1.2;
+            margin-bottom: 24px;
+        }
+        
+        .hero h1 .highlight {
+            color: var(--accent-coral);
+        }
+        
+        .hero p {
+            font-size: 20px;
+            color: var(--gray-700);
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+        
+        .hero-cta {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+        
+        .hero-image {
+            text-align: center;
+        }
+        
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.1));
+        }
+        
+        .trust-badges {
+            display: flex;
+            gap: 24px;
+            margin-top: 32px;
+            font-size: 14px;
+            color: var(--gray-700);
+        }
+        
+        .trust-badges div {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* Stats Section */
+        .stats {
+            background: var(--deep-navy);
+            color: white;
+            padding: 48px 24px;
+        }
+        
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 48px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--success-mint);
+            margin-bottom: 8px;
+        }
+        
+        .stat-label {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        /* How It Works */
+        .how-it-works {
+            padding: 96px 24px;
+            background: white;
+        }
+        
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+        
+        .section-header h2 {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--deep-navy);
+            margin-bottom: 16px;
+        }
+        
+        .section-header p {
+            font-size: 20px;
+            color: var(--gray-700);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 48px;
+        }
+        
+        .step {
+            text-align: center;
+            padding: 32px;
+            border-radius: 16px;
+            transition: all 0.3s;
+        }
+        
+        .step:hover {
+            background: var(--sky-blue);
+            transform: translateY(-8px);
+        }
+        
+        .step-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            background: linear-gradient(135deg, var(--accent-coral) 0%, var(--success-mint) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+        }
+        
+        .step h3 {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--deep-navy);
+            margin-bottom: 16px;
+        }
+        
+        .step p {
+            font-size: 16px;
+            color: var(--gray-700);
+            line-height: 1.6;
+        }
+        
+        /* Features */
+        .features {
+            padding: 96px 24px;
+            background: var(--warm-sand);
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 48px;
+            margin-top: 64px;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s;
+        }
+        
+        .feature-card:hover {
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+            transform: translateY(-4px);
+        }
+        
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 24px;
+        }
+        
+        .feature-card h3 {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--deep-navy);
+            margin-bottom: 16px;
+        }
+        
+        .feature-card p {
+            font-size: 16px;
+            color: var(--gray-700);
+            line-height: 1.6;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            padding: 96px 24px;
+            background: white;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-top: 64px;
+        }
+        
+        .testimonial-card {
+            background: var(--sky-blue);
+            padding: 32px;
+            border-radius: 16px;
+            position: relative;
+        }
+        
+        .testimonial-quote {
+            font-size: 18px;
+            color: var(--gray-900);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .author-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-blue), var(--success-mint));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .author-info h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--deep-navy);
+        }
+        
+        .author-info p {
+            font-size: 14px;
+            color: var(--gray-700);
+        }
+        
+        .stars {
+            color: #FFC107;
+            font-size: 16px;
+            margin-bottom: 16px;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 96px 24px;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-coral) 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+        
+        .cta-section p {
+            font-size: 20px;
+            margin-bottom: 32px;
+            opacity: 0.9;
+        }
+        
+        .btn-white {
+            background: white;
+            color: var(--primary-blue);
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-white:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--deep-navy);
+            color: white;
+            padding: 64px 24px 32px;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+        
+        .footer-brand h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        
+        .footer-brand p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 16px;
+        }
+        
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        
+        .social-links a:hover {
+            background: var(--primary-blue);
+            transform: translateY(-2px);
+        }
+        
+        .footer-links h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        
+        .footer-links a {
+            display: block;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            margin-bottom: 12px;
+            transition: color 0.2s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 32px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 14px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 32px;
+            }
+            
+            .steps, .feature-grid, .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <!-- Your logo will go here -->
+                <span style="font-size: 32px;">🦎</span>
+                <span>Tandem<span style="color: var(--accent-coral);">Pair</span></span>
+            </a>
+            <div class="nav-links">
+                <a href="#how-it-works">How It Works</a>
+                <a href="#features">Features</a>
+                <a href="#testimonials">Reviews</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#" class="btn-primary">Start Exchanging</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>
+                    <span class="highlight">Change money,</span><br>
+                    not trust
+                </h1>
+                <p>
+                    Connect with travelers who have the currency you need. Exchange directly, fairly, and without bank fees.
+                </p>
+                <div class="hero-cta">
+                    <a href="#" class="btn-primary">Open Telegram Bot</a>
+                    <a href="#how-it-works" class="btn-secondary">See How It Works</a>
+                </div>
+                <div class="trust-badges">
+                    <div>
+                        ✓ Zero fees
+                    </div>
+                    <div>
+                        ✓ No middleman
+                    </div>
+                    <div>
+                        ✓ Community-driven
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <!-- Large Leo illustration would go here -->
+                <div style="font-size: 280px; line-height: 1; filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.15));">
+                    🦎
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats">
+        <div class="stats-container">
+            <div>
+                <div class="stat-number">1,247</div>
+                <div class="stat-label">Active Users</div>
+            </div>
+            <div>
+                <div class="stat-number">€2.3M</div>
+                <div class="stat-label">Exchanged</div>
+            </div>
+            <div>
+                <div class="stat-number">4.8★</div>
+                <div class="stat-label">Average Rating</div>
+            </div>
+            <div>
+                <div class="stat-number">19</div>
+                <div class="stat-label">Countries</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="how-it-works">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>How TandemPair Works</h2>
+                <p>Three simple steps to exchange currency with fellow travelers</p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-icon">💱</div>
+                    <h3>1. Create Offer</h3>
+                    <p>Tell us what currency you have and what you need. Set your amount, payment method, and location.</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">🔍</div>
+                    <h3>2. Get Matched</h3>
+                    <p>Leo finds people with opposite needs. Review their profile, reputation, and exchange history.</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">🤝</div>
+                    <h3>3. Exchange Safely</h3>
+                    <p>Connect via Telegram, agree on the rate, and complete the exchange. Rate your experience!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="features">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Why Choose TandemPair?</h2>
+                <p>Built for travelers, by travelers</p>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Community Trust</h3>
+                    <p>Every user has a reputation score built from real exchanges. See reviews, verified badges, and exchange history before connecting.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💸</div>
+                    <h3>Zero Hidden Fees</h3>
+                    <p>No transaction fees, no conversion markups, no account minimums. Pay exactly what you and your match agree on.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Instant Matching</h3>
+                    <p>Smart algorithm finds opposite currency needs in seconds. Get notified immediately when matches appear.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌍</div>
+                    <h3>Global Network</h3>
+                    <p>Exchange in 19 countries across 4 continents. From Buenos Aires to Berlin, find travelers everywhere.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="testimonials">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>What Travelers Say</h2>
+                <p>Real stories from our community</p>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-quote">
+                        "Saved me €150 in fees when exchanging AUD to EUR in Berlin. Met a fellow Australian, made a friend!"
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SJ</div>
+                        <div class="author-info">
+                            <h4>Sarah J.</h4>
+                            <p>Digital Nomad, Australia</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-quote">
+                        "The reputation system makes it feel safe. I could see reviews from other exchanges before meeting."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MC</div>
+                        <div class="author-info">
+                            <h4>Miguel C.</h4>
+                            <p>Work & Holiday, Argentina</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-quote">
+                        "Found a match in 5 minutes! Way better than waiting days for bank transfers."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">LM</div>
+                        <div class="author-info">
+                            <h4>Laura M.</h4>
+                            <p>Student, Germany</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="section-container">
+            <h2>Ready to Exchange?</h2>
+            <p>Join thousands of travelers saving on currency exchange fees</p>
+            <a href="#" class="btn-white">Start with Telegram Bot →</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3>TandemPair</h3>
+                <p>
+                    Peer-to-peer currency exchange for travelers, digital nomads, and expats worldwide. Change money, not trust.
+                </p>
+                <div class="social-links">
+                    <a href="#">📘</a>
+                    <a href="#">🐦</a>
+                    <a href="#">📷</a>
+                    <a href="#">💼</a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Product</h4>
+                <a href="#">How It Works</a>
+                <a href="#">Features</a>
+                <a href="#">Pricing</a>
+                <a href="#">Security</a>
+            </div>
+            <div class="footer-links">
+                <h4>Company</h4>
+                <a href="#">About Us</a>
+                <a href="#">Blog</a>
+                <a href="#">Careers</a>
+                <a href="#">Contact</a>
+            </div>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <a href="#">Terms of Service</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Cookie Policy</a>
+                <a href="#">Disclaimer</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2025 TandemPair. All rights reserved. Made with 🦎 for global travelers.
+        </div>
+    </footer>
+</body>
+</html>
